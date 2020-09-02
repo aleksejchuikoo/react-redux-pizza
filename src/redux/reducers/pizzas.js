@@ -11,6 +11,11 @@ const pizzas = (state = initialState, { type, payload }) => {
         items: payload,
         isLoaded: true,
       };
+    case 'SET_LOADED':
+      return {
+        ...state,
+        isLoaded: payload,
+      };
     default:
       return state;
   }
