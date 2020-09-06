@@ -2,9 +2,10 @@ import React from 'react';
 import classNames from 'classnames';
 
 const Button = (props) => {
-  const { children, outline, cart } = props;
+  const { onClick, children, outline, cart, add } = props;
   return (
     <button
+      onClick={onClick}
       className={classNames(
         'button',
         {
@@ -12,6 +13,9 @@ const Button = (props) => {
         },
         {
           'button--cart': cart,
+        },
+        {
+          'button--add': add,
         },
       )}>
       {children}

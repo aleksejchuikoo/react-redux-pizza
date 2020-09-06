@@ -1,23 +1,31 @@
 const initialState = {
-  category: 0,
-  sortBy: 'popular',
+  items: {},
+  totalPrice: 0,
+  totalCount: 0,
 };
 
-const filters = (state = initialState, { type, payload }) => {
+const cart = (state = initialState, { type, payload }) => {
   switch (type) {
-    case 'SET_SORT_BY':
+    case 'ADD_PIZZA_CART': {
+      const newItems = {
+        ...state.items,
+        [payload.id]: !state.items[payload.id] ? [payload] : [...state.items[payload.id], payload],
+      };
+
+      const allPizzas = [].concat.apply([], Object.values(newItems));
+      const totalPrice = allPizzas.reduce((sum, obj) => obj.price + sum, 0);
+
       return {
         ...state,
-        sortBy: payload,
+        items: newItems,
+        totalCount: [].concat.apply([], Object.values(newItems)).length,
+        totalPrice,
       };
-    case 'SET_CATEGORY':
-      return {
-        ...state,
-        category: payload,
-      };
+    }
+
     default:
       return state;
   }
 };
 
-export default filters;
+export default cart;
