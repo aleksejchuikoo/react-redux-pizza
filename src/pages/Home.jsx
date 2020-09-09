@@ -70,7 +70,7 @@ function Home() {
           onClickSortType={onSelectSortType}
         />
       </div>
-      <h2 className="content__title">Все пиццы</h2>{' '}
+      <h2 className="content__title">Все пиццы</h2>
       <div
         className="content__items"
         style={
@@ -87,7 +87,7 @@ function Home() {
               <PizzaBlock
                 onClickAddPizza={handleAddPizzaToCart}
                 key={pizza.id}
-                addedCount={cartItems[pizza.id] && cartItems[pizza.id].length}
+                addedCount={cartItems[pizza.id] && cartItems[pizza.id].items.length}
                 {...pizza}
                 margin={items.length < 3}
               />

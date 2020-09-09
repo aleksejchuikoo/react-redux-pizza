@@ -34,7 +34,7 @@ function PizzaBlock({
       name,
       imageUrl,
       price,
-      type: availableTypes[activeType] + ' тесто',
+      type: availableTypes[activeType],
       size: availableSizes[activeSize],
     };
 
