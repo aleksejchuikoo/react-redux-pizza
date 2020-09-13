@@ -4,6 +4,8 @@ const initialState = {
     type: 'rating',
     order: 'desc',
   },
+  currentPage: 1,
+  postsPerPage: 12,
 };
 
 const filters = (state = initialState, { type, payload }) => {
@@ -17,6 +19,11 @@ const filters = (state = initialState, { type, payload }) => {
       return {
         ...state,
         category: payload,
+      };
+    case 'SET_PAGE':
+      return {
+        ...state,
+        currentPage: payload,
       };
     default:
       return state;

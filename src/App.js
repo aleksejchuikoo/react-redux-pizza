@@ -5,12 +5,24 @@ import { Header } from './components';
 import { Home, Cart } from './pages';
 
 function App() {
+  const [state, setstate] = React.useState(false);
+
+  const handleTheme = () => {
+    setstate(!state);
+  };
+
   return (
-    <div className="wrapper">
-      <Header />
-      <div className="content">
-        <Route path="/" component={Home} exact />
-        <Route path="/cart" component={Cart} exact />
+    <div className={`overlay ${state ? 'dark-theme' : ''}`}>
+      <div className="wrapper">
+        <Header onClick={handleTheme} />
+        <div className="content">
+          <Route path="/" exact>
+            <Home />
+          </Route>
+          <Route path="/cart" exact>
+            <Cart />
+          </Route>
+        </div>
       </div>
     </div>
   );

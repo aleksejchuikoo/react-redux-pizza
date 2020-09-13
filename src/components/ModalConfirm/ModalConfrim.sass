@@ -1,0 +1,37 @@
+.modal-overlay 
+  position: fixed
+  left: 0
+  right: 0
+  top: 0
+  bottom: 0
+  background-color: rgba(0,0,0,0.5)
+  display: flex
+  align-items: center
+  justify-content: center
+
+.modal_confirm
+  width: 500px
+  height: 200px
+  background-color: #eee
+  border-radius: 15px
+  animation: transf .2s
+  &-title
+    font-size: 28px
+    text-align: center
+    font-weight: bold
+    margin: 30px 20px
+  &-btns
+    text-align: center
+    .button
+      font-size: 22px
+      padding: 5px 10px
+    .button:first-child
+      margin-right: 30px
+
+@keyframes transf
+  0%
+    transform: translateY(-30px)
+    opacity: 0
+  100%
+    transform: translateY(0)
+    opacity: 1

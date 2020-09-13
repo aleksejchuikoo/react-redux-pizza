@@ -46,70 +46,60 @@ const cart = (state = initialState, { type, payload }) => {
       };
     }
 
-    // case 'INCREMENT_CART_ITEM': {
-    //   const newItems = {
-    //     ...state.items,
-    //     [payload.id]: {
-    //       items: [...state.items[payload].items, state.items[payload].items[0]],
-    //     },
-    //   };
+    case 'INCREMENT_CART_ITEM': {
+      const newItems = [...state.items[payload].items, state.items[payload].items[0]];
+      const newObjItems = {
+        ...state.items,
+        [payload]: {
+          items: newItems,
+          totalPrice: getTotalPrice(newItems),
+        },
+      };
 
-    //   const totalCount = Object.keys(newItems).reduce(
-    //     (sum, key) => newItems[key].items.length + sum,
-    //     0,
-    //   );
-    //   const totalPrice = Object.keys(newItems).reduce(
-    //     (sum, key) => newItems[key].totalPrice + sum,
-    //     0,
-    //   );
+      const totalCount = Object.keys(newObjItems).reduce(
+        (sum, key) => newObjItems[key].items.length + sum,
+        0,
+      );
+      const totalPrice = Object.keys(newObjItems).reduce(
+        (sum, key) => newObjItems[key].totalPrice + sum,
+        0,
+      );
 
-    //   return {
-    //     ...state,
-    //     items: {
-    //       ...state.items,
-    //       [payload]: {
-    //         items: newItems,
-    //         totalPrice: getTotalPrice(newItems),
-    //       },
-    //       totalCount,
-    //       totalPrice,
-    //     },
-    //   };
-    // }
+      return {
+        ...state,
+        items: newObjItems,
+        totalCount,
+        totalPrice,
+      };
+    }
 
-    // case 'DECREMENT_CART_ITEM': {
-    //   const prevItems = state.items[payload].items;
-    //   const newObjItems = prevItems.length > 1 ? prevItems.slice(1) : prevItems;
+    case 'DECREMENT_CART_ITEM': {
+      const prevItems = state.items[payload].items;
+      const newItems = prevItems.length > 1 ? prevItems.slice(1) : prevItems;
+      const newObjItems = {
+        ...state.items,
+        [payload]: {
+          items: newItems,
+          totalPrice: getTotalPrice(newItems),
+        },
+      };
 
-    //   const newItems = {
-    //     ...state.items,
-    //     [payload]: {
-    //       items: newObjItems,
-    //       totalPrice: getTotalPrice(newObjItems),
-    //     },
-    //   };
+      const totalCount = Object.keys(newObjItems).reduce(
+        (sum, key) => newObjItems[key].items.length + sum,
+        0,
+      );
+      const totalPrice = Object.keys(newObjItems).reduce(
+        (sum, key) => newObjItems[key].totalPrice + sum,
+        0,
+      );
 
-    //   const totalCount = Object.keys(newItems).reduce(
-    //     (sum, key) => newItems[key].items.length + sum,
-    //     0,
-    //   );
-    //   const totalPrice = Object.keys(newItems).reduce(
-    //     (sum, key) => newItems[key].totalPrice + sum,
-    //     0,
-    //   );
-
-    //   return {
-    //     ...state,
-    //     items: {
-    //       ...state.items,
-    //       [payload]: {
-    //         items: newItems,
-    //       },
-    //       totalCount,
-    //       totalPrice,
-    //     },
-    //   };
-    // }
+      return {
+        ...state,
+        items: newObjItems,
+        totalCount,
+        totalPrice,
+      };
+    }
 
     case 'REMOVE_CART_ITEM': {
       const newItems = {

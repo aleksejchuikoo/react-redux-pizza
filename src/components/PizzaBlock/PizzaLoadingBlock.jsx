@@ -4,7 +4,7 @@ import ContentLoader from 'react-content-loader';
 function PizzaLoadingBlock({ margin }) {
   return (
     <ContentLoader
-      style={margin ? { marginRight: 6 + '%' } : { marginRight: 0 }}
+      style={margin && { marginRight: 0 }}
       speed={2}
       width={280}
       height={457}

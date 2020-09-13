@@ -7,3 +7,8 @@ export const setCategory = (cartIndex) => ({
   type: 'SET_CATEGORY',
   payload: cartIndex,
 });
+
+export const setPage = (selectedPage) => ({
+  type: 'SET_PAGE',
+  payload: selectedPage,
+});

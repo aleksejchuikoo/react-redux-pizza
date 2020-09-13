@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -6,9 +6,11 @@ import { CartItem } from '../components';
 import { clearCart, removeCartItem, plusCartItem, minusCartItem } from '../redux/actions/cart';
 
 import emptyCart from '../assets/img/empty-cart.png';
+import ModalConfirm from '../components/ModalConfirm/ModalConfirm';
 
 function Cart() {
   const dispatch = useDispatch();
+  const [open, setOpen] = useState(false);
   const { totalPrice, totalCount, items } = useSelector(({ cart }) => cart);
 
   const groupPizzas = Object.keys(items).map((key) => {
@@ -18,8 +20,11 @@ function Cart() {
     };
   });
 
-  const onClearCart = () => {
-    dispatch(clearCart());
+  const onClearCart = (bool) => {
+    if (bool) {
+      dispatch(clearCart());
+    }
+    setOpen(false);
   };
 
   const onRemoveCartItem = (id) => {
@@ -109,7 +114,7 @@ function Cart() {
                     />
                   </svg>
 
-                  <span onClick={onClearCart}>Очистить корзину</span>
+                  <span onClick={() => setOpen('очистить корзину')}>Очистить корзину</span>
                 </div>
               </div>
               <div className="content__items">
@@ -121,6 +126,7 @@ function Cart() {
                     onRemove={onRemoveCartItem}
                     onPlus={onPlusCartItem}
                     onMinus={onMinusCartItem}
+                    key={item.id}
                   />
                 ))}
               </div>
@@ -159,9 +165,9 @@ function Cart() {
               </div>
             </div>
           ) : (
-            <div class="cart cart--empty">
+            <div className="cart cart--empty">
               <h2>
-                Корзина пустая <icon>😕</icon>
+                Корзина пустая <i>😕</i>
               </h2>
               <p>
                 Вероятней всего, вы не заказывали ещё пиццу.
@@ -169,13 +175,14 @@ function Cart() {
                 Для того, чтобы заказать пиццу, перейди на главную страницу.
               </p>
               <img src={emptyCart} alt="Empty cart" />
-              <Link to="/" class="button button--black">
+              <Link to="/" className="button button--black">
                 <span>Вернуться назад</span>
               </Link>
             </div>
           )}
         </div>
       </div>
+      {open && <ModalConfirm open={open} confirm={onClearCart} />}
     </>
   );
 }
